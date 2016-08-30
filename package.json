@@ -12,9 +12,12 @@
     "eslint-plugin-react": "^6.2.0"
   },
   "scripts": {
-    "test": "test",
+    "test": "eslint ./src",
     "start": "node ./lib/app.js"
   },
   "author": "elusive avenger",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.14.0"
+  }
 }
