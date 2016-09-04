@@ -12,6 +12,7 @@
     "eslint-plugin-react": "^6.2.0"
   },
   "scripts": {
+    "install": "/node_modules/.bin/babel src --out-dir lib",
     "test": "eslint ./src",
     "start": "node ./lib/app.js"
   },
