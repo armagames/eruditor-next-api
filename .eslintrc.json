@@ -1,15 +1,18 @@
 {
-    "extends": "airbnb",
-    "plugins": [
-        "react",
-        "jsx-a11y",
-        "import"
-    ],
+    "extends": "google",
+    "env": {
+        "commonjs": true,
+        "es6": true
+    },
     "rules": {
         "no-restricted-syntax": "off",
         "linebreak-style": [
             "error",
             "windows"
+        ],
+        "max-len": [
+            "error",
+            120
         ]
     }
 }
