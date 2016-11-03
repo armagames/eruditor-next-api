@@ -6,6 +6,10 @@
         "import"
     ],
     "rules": {
-        "no-restricted-syntax": "off"
+        "no-restricted-syntax": "off",
+        "linebreak-style": [
+            "error",
+            "windows"
+        ]
     }
 }
