@@ -1,30 +1,35 @@
-const request = require('request');
+const stogare = require('./storage');
 
-const util = require('util');
+let records = {};
 
-const urlTemplate = 'http://randstuff.ru/%s/generate/';
-const defaultHeaders = {
-  'X-Requested-With': 'XMLHttpRequest',
+const getRecordsByType = (type, callback) => {
+  if (!records[type]) {
+    stogare.getRecords(type, (items) => {
+      records[type] = items;
+      callback(records[type]);
+    });
+  } else {
+    callback(records[type]);
+  }
 };
-const defaultConverter = (responseText) => JSON.parse(responseText);
+
+const randomInteger = (min, max) => {
+  let rand = min + Math.random() * (max - min);
+  rand = Math.round(rand);
+  return rand;
+};
+
+const getRandomRecord = (type, callback) => {
+  getRecordsByType(type, (items) => {
+    const count = items.length;
+    const index = randomInteger(0, count);
+    const selectedRecord = items[index];
+    callback(selectedRecord);
+  });
+};
 
 exports.get = (res, type) => {
-  const options = {
-    url: util.format(urlTemplate, type),
-    headers: defaultHeaders,
-  };
-
-  request.get(options, (err, httpResponse, body) => {
-    if (err) {
-      res.json({
-        type: 'error',
-        error: err,
-      });
-    }
-
-    const item = defaultConverter(body)[type];
-    item.type = type;
-
-    res.json(item);
+  getRandomRecord(type, (record) => {
+    res.json(record);
   });
 };

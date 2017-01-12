@@ -1,17 +1,11 @@
 const util = require('util');
-
 const express = require('express');
-
 const get = require('./get');
 
 const log = util.debuglog('eruditor-next-api');
 const app = express();
 
 exports.run = () => {
-  process.argv.forEach((val, index) => {
-    log('%d: %s', index, val);
-  });
-
   const types = [];
 
   for (const key in get) {
