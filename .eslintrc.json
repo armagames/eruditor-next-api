@@ -1,11 +1,22 @@
 {
-    "extends": "airbnb",
-    "plugins": [
-        "react",
-        "jsx-a11y",
-        "import"
-    ],
+    "extends": "google",
+    "env": {
+        "es6": true
+    },
     "rules": {
-        "no-restricted-syntax": "off"
+        "no-restricted-syntax": "off",
+        "linebreak-style": [
+            "error",
+            "windows"
+        ],
+        "quotes": [
+            "error",
+            "single"
+        ],
+        "curly": "error",
+        "max-len": [
+            "warn",
+            120
+        ]
     }
 }
