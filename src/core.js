@@ -1,20 +1,18 @@
 const util = require('util');
 const express = require('express');
-const get = require('./get');
+const source = require('./source');
 
 const log = util.debuglog('eruditor-next-api');
 const app = express();
 
+const handle = (req, res) => {
+  const type = req.params.type;
+  const id = req.params.id;
+
+  source.get(res, type, id);
+};
+
 exports.run = () => {
-  const types = [];
-
-  for (const key in get) {
-    if ({}.hasOwnProperty.call(get, key) && typeof get[key] === 'function') {
-      log('key: %s', key);
-      types.push(key);
-    }
-  }
-
   app.use((req, res, next) => {
     const origin = (req && req.headers && req.headers.origin)
       || '*';
@@ -24,27 +22,9 @@ exports.run = () => {
     next();
   });
 
-  app.get('/api', (req, res) => {
-    res.json({
-      queryFormal: '/api/:type',
-      types,
-    });
-  });
+  app.get('/api/:type', handle);
 
-  app.get('/api/:type', (req, res) => {
-    const request = get[req.params.type];
-    if (typeof (request) === 'function') {
-      request(res);
-    } else {
-      res.json(
-        {
-          error: {
-            text: 'обработчик для данного запроса не установлен',
-          },
-        }
-      );
-    }
-  });
+  app.get('/api/:type/:id', handle);
 
   app.listen(27099, () => {
     log('listening port 27099');
