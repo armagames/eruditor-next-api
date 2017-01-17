@@ -30,14 +30,13 @@ const getRandomRecord = (type, callback) => {
 
 const findItemById = (id) => {
   return (item) => {
-    return item.id === id;
+    return item._id.toString() === id;
   };
 };
 
 const getRecordById = (type, id, callback) => {
   getRecordsByType(type, (items) => {
-    let index = Number(id);
-    const selectedRecord = isNaN(index) ? undefined : items.find(findItemById(index));
+    const selectedRecord = !id ? undefined : items.find(findItemById(id));
     callback(selectedRecord);
   });
 };
