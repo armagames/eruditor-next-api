@@ -2,10 +2,7 @@ const MongoClient = require('mongodb').MongoClient;
 
 const collectionName = 'record';
 
-const connectionStringParameterName = '-cs';
-let connectionStringParameterIndex = process.argv.indexOf(connectionStringParameterName) + 1;
-
-const connectionString = process.argv[connectionStringParameterIndex];
+const connectionString = process.env.MONGODB_CONNECTION_STRING;
 
 exports.getRecords = (type, callback) => {
   MongoClient.connect(connectionString, function(err, db) {

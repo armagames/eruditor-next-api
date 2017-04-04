@@ -5,6 +5,8 @@ const source = require('./source');
 const log = util.debuglog('eruditor-next-api');
 const app = express();
 
+app.set('port', (process.env.PORT || 27099));
+
 const handle = (req, res) => {
   const type = req.params.type;
   const id = req.params.id;
@@ -26,7 +28,7 @@ exports.run = () => {
 
   app.get('/api/:type/:id', handle);
 
-  app.listen(27099, () => {
-    log('listening port 27099');
+  app.listen(app.get('port'), () => {
+    log('Node app is running on port ' + app.get('port'));
   });
 };
