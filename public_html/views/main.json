@@ -1,0 +1,323 @@
+{
+  "$schema": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/View/View.json",
+  "OnLoaded": "{ onLoaded(context, args); }",
+  "DataSources": [
+    {
+      "ObjectDataSource": {
+        "Name": "SettingsDataSource",
+        "Items": [
+          {}
+        ],
+        "OnSelectedItemChanged": "{ settingsUpdate(context, args); }"
+      }
+    },
+    {
+      "ObjectDataSource": {
+        "Name": "TypesDataSource",
+        "Items": [
+          {
+            "Name": "Факт",
+            "Value": "fact",
+            "Icon": "check-circle"
+          },
+          {
+            "Name": "Цитата",
+            "Value": "saying",
+            "Icon": "comment"
+          },
+          {
+            "Name": "Шутка",
+            "Value": "joke",
+            "Icon": "bomb"
+          }
+        ]
+      }
+    },
+    {
+      "RestDataSource": {
+        "Name": "EruditorDataSource",
+        "GettingParams": {
+          "Method": "get",
+          "Params": {
+            "Filter": {
+              "Source": "FilterDataSource",
+              "Property": "$.Filter",
+              "Mode": "ToElement",
+              "Converter": {
+                "ToElement": "{ return filterConverter(context, args); }"
+              }
+            }
+          },
+          "Path": "/<%Filter%>",
+          "Data": {}
+        },
+        "UpdatingItemsConverter": "{ return responseConverter(context, args); }"
+      }
+    },
+    {
+      "ObjectDataSource": {
+        "Name": "FilterDataSource",
+        "Items": [
+          {
+            "Filter": null
+          }
+        ]
+      }
+    }
+  ],
+  "Items": [
+    {
+      "TablePanel": {
+        "Items": [
+          {
+            "Row": {
+              "Items": [
+                {
+                  "Cell": {
+                    "ColumnSpan": 12,
+                    "Items": [
+                      {
+                        "ScrollPanel": {
+                          "Items": [
+                            {
+                              "Panel": {
+                                "Style": "without-border",
+                                "HeaderTemplate": {
+                                  "TablePanel": {
+                                    "Items": [
+                                      {
+                                        "Row": {
+                                          "Items": [
+                                            {
+                                              "Cell": {
+                                                "ColumnSpan": 6,
+                                                "Items": [
+                                                  {
+                                                    "StackPanel": {
+                                                      "Orientation": "Horizontal",
+                                                      "HorizontalAlignment": "Left",
+                                                      "ViewMode": "FormGroup",
+                                                      "ItemTemplate": {
+                                                        "Button": {
+                                                          "ContentTemplate": {
+                                                            "Icon": {
+                                                              "Value": {
+                                                                "Source": "TypesDataSource",
+                                                                "Property": "#.Icon"
+                                                              }
+                                                            }
+                                                          },
+                                                          "ToolTip": {
+                                                            "Label": {
+                                                              "Value": {
+                                                                "Source": "TypesDataSource",
+                                                                "Property": "#.Name"
+                                                              }
+                                                            }
+                                                          },
+                                                          "Tag": {
+                                                            "Source": "TypesDataSource",
+                                                            "Property": "#"
+                                                          },
+                                                          "OnClick": "{ chancheTypeButtonOnClick(context, args); }"
+                                                        }
+                                                      },
+                                                      "Items": {
+                                                        "Source": "TypesDataSource"
+                                                      }
+                                                    }
+                                                  }
+                                                ]
+                                              }
+                                            },
+                                            {
+                                              "Cell": {
+                                                "ColumnSpan": 6,
+                                                "Items": [
+                                                  {
+                                                    "StackPanel": {
+                                                      "Orientation": "Horizontal",
+                                                      "HorizontalAlignment": "Right",
+                                                      "ViewMode": "FormGroup",
+                                                      "Items": [
+                                                        {
+                                                          "Button":{
+                                                            "ContentTemplate": {
+                                                              "Icon": {
+                                                                "Value": "cog"
+                                                              }
+                                                            },
+                                                            "ToolTip": "Параметры",
+                                                            "Action": {
+                                                              "EditAction": {
+                                                                "DestinationValue": {
+                                                                  "Source": "SettingsDataSource",
+                                                                  "Property": "$"
+                                                                },
+                                                                "SourceValue": {
+                                                                  "Source": "MainDataSource"
+                                                                },
+                                                                "LinkView": {
+                                                                  "InlineView": {
+                                                                    "OpenMode": "Dialog",
+                                                                    "View": {
+                                                                      "Text": "Параметры",
+                                                                      "OnLoaded": "{ setPeriodesToDataSource(context); }",
+                                                                      "DataSources": [
+                                                                        {
+                                                                          "ObjectDataSource": {
+                                                                            "Name": "PeriodesDataSource"
+                                                                          }
+                                                                        },
+                                                                        {
+                                                                          "ObjectDataSource": {
+                                                                            "Name": "MainDataSource"
+                                                                          }
+                                                                        }
+                                                                      ],
+                                                                      "Items": [
+                                                                        {
+                                                                          "ComboBox": {
+                                                                            "LabelText": "Период автоматического обновления",
+                                                                            "Items": {
+                                                                              "Source": "PeriodesDataSource"
+                                                                            },
+                                                                            "Value": {
+                                                                              "Source": "MainDataSource",
+                                                                              "Property": "$"
+                                                                            },
+                                                                            "ItemFormat": "{Text}",
+                                                                            "ValueFormat": "{Text}",
+                                                                            "ShowClear": false
+                                                                          }
+                                                                        },
+                                                                        {
+                                                                          "StackPanel": {
+                                                                            "Orientation": "Horizontal",
+                                                                            "HorizontalAlignment": "Right",
+                                                                            "ViewMode": "FormGroup",
+                                                                            "Items": [
+                                                                              {
+                                                                                "Button": {
+                                                                                  "Text": "Применить",
+                                                                                  "Background": "accent-success",
+                                                                                  "Action": {
+                                                                                    "SaveAction": {
+                                                                                      "DestinationValue": {
+                                                                                        "Source": "MainDataSource"
+                                                                                      }
+                                                                                    }
+                                                                                  }
+                                                                                }
+                                                                              }
+                                                                            ]
+                                                                          }
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        },
+                                                        {
+                                                          "Button": {
+                                                            "ContentTemplate": {
+                                                              "Icon": {
+                                                                "Value": "refresh"
+                                                              }
+                                                            },
+                                                            "ToolTip": "Обновить",
+                                                            "OnClick": "{ updateRecord(context); }",
+                                                            "Background": "accent-success"
+                                                          }
+                                                        }
+                                                      ]
+                                                    }
+                                                  }
+                                                ]
+                                              }
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    ]
+                                  }
+                                },
+                                "TextHorizontalAlignment": "Center",
+                                "Items": [
+                                  {
+                                    "Label": {
+                                      "Value": {
+                                        "Source": "TypesDataSource",
+                                        "Property": "$.Name"
+                                      },
+                                      "TextHorizontalAlignment": "Center",
+                                      "TextStyle": "Display2"
+                                    }
+                                  },
+                                  {
+                                    "Label": {
+                                      "Value": {
+                                        "Source": "EruditorDataSource",
+                                        "Property": "$.text"
+                                      },
+                                      "HorizontalAlignment": "Center",
+                                      "TextHorizontalAlignment": "Center",
+                                      "TextTrimming": false,
+                                      "TextWrapping": true,
+                                      "TextStyle": "Title"
+                                    }
+                                  },
+                                  {
+                                    "Label": {
+                                      "Value": {
+                                        "Source": "EruditorDataSource",
+                                        "Property": "$.author"
+                                      },
+                                      "TextHorizontalAlignment": "Right",
+                                      "TextStyle": "Subhead",
+                                      "Visible": {
+                                        "Source": "EruditorDataSource",
+                                        "Property": "$.author"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "ExtensionPanel": {
+                                      "ExtensionName": "ShareBox",
+                                      "HorizontalAlignment": "Center"
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "Cell": {
+                    "ColumnSpan": 12,
+                    "Items": [
+                      {
+                        "Label": {
+                          "Text": "armageddon games",
+                          "HorizontalAlignment": "Center",
+                          "TextStyle": "Bottom"
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

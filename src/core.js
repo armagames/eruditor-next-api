@@ -5,7 +5,7 @@ const source = require('./source');
 const log = util.debuglog('eruditor-next-api');
 const app = express();
 
-app.set('port', (process.env.PORT || 27099));
+app.set('port', (process.env.PORT || 5000));
 
 const handle = (req, res) => {
   const type = req.params.type;
@@ -23,6 +23,8 @@ exports.run = () => {
     res.header('Access-Control-Allow-Credentials', true);
     next();
   });
+
+  app.use(express.static('public_html'));
 
   app.get('/api/:type', handle);
 
