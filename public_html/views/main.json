@@ -63,6 +63,29 @@
           }
         ]
       }
+    },
+    {
+      "ObjectDataSource": {
+        "Name": "CreatorsDataSource",
+        "Items": [
+          {
+            "Title": "created by armageddon games",
+            "Link": "http://armagames.org/"
+          },
+          {
+            "Title": "drawn with InfinniUI",
+            "Link": "http://infinniui-en.readthedocs.io/"
+          },
+          {
+            "Title": "works on node.js",
+            "Link": "https://nodejs.org/"
+          },
+          {
+            "Title": "hosted by heroku",
+            "Link": "https://www.heroku.com/"
+          }
+        ]
+      }
     }
   ],
   "Items": [
@@ -304,10 +327,29 @@
                     "ColumnSpan": 12,
                     "Items": [
                       {
-                        "Label": {
-                          "Text": "armageddon games",
-                          "HorizontalAlignment": "Center",
-                          "TextStyle": "Bottom"
+                        "GridPanel": {
+                          "Items": {
+                            "Source": "CreatorsDataSource"
+                          },
+                          "ItemTemplate": {
+                            "Cell": {
+                              "ColumnSpan": 3,
+                              "HorizontalAlignment": "Center",
+                              "Items": [
+                                {
+                                  "Label": {
+                                    "DisplayFormat": "<a href='{Link}' target='_blank'>{Title}</a>",
+                                    "Value": {
+                                      "Source": "CreatorsDataSource",
+                                      "Property": "#"
+                                    },
+                                    "EscapeHtml": false,
+                                    "HorizontalAlignment": "Center"
+                                  }
+                                }
+                              ]
+                            }
+                          }
                         }
                       }
                     ]
