@@ -69,20 +69,29 @@
         "Name": "CreatorsDataSource",
         "Items": [
           {
-            "Title": "created by armageddon games",
+            "Action": "created by",
+            "Title": "armageddon games",
             "Link": "http://armagames.org/"
           },
           {
-            "Title": "drawn with InfinniUI",
+            "Action": "drawn with",
+            "Title": "InfinniUI",
             "Link": "http://infinniui-en.readthedocs.io/"
           },
           {
-            "Title": "works on node.js",
+            "Action": "works on",
+            "Title": "Node.js",
             "Link": "https://nodejs.org/"
           },
           {
-            "Title": "hosted by heroku",
+            "Action": "hosted by",
+            "Title": "Heroku",
             "Link": "https://www.heroku.com/"
+          },
+          {
+            "Action": "storage on ",
+            "Title": "mLab",
+            "Link": "https://www.mlab.com/"
           }
         ]
       }
@@ -327,27 +336,22 @@
                     "ColumnSpan": 12,
                     "Items": [
                       {
-                        "GridPanel": {
+                        "StackPanel": {
+                          "Orientation": "Horizontal",
+                          "ViewMode": "FormGroup",
+                          "HorizontalAlignment": "Center",
                           "Items": {
                             "Source": "CreatorsDataSource"
                           },
-                          "ItemTemplate": {
-                            "Cell": {
-                              "ColumnSpan": 3,
-                              "HorizontalAlignment": "Center",
-                              "Items": [
-                                {
-                                  "Label": {
-                                    "DisplayFormat": "<a href='{Link}' target='_blank'>{Title}</a>",
-                                    "Value": {
-                                      "Source": "CreatorsDataSource",
-                                      "Property": "#"
-                                    },
-                                    "EscapeHtml": false,
-                                    "HorizontalAlignment": "Center"
-                                  }
-                                }
-                              ]
+                          "ItemTemplate":{
+                            "Label": {
+                              "DisplayFormat": "<div style='margin: 0 15px;'><a href='{Link}' target='_blank'>{Action}</br>{Title}</a></div>",
+                              "Value": {
+                                "Source": "CreatorsDataSource",
+                                "Property": "#"
+                              },
+                              "EscapeHtml": false,
+                              "HorizontalAlignment": "Center"
                             }
                           }
                         }
