@@ -345,7 +345,7 @@
                           },
                           "ItemTemplate":{
                             "Label": {
-                              "DisplayFormat": "<div style='margin: 0 15px;'><a href='{Link}' target='_blank'>{Action}</br>{Title}</a></div>",
+                              "DisplayFormat": "<div style='margin: 0 15px 15px 15px;'><a href='{Link}' target='_blank'>{Action}</br>{Title}</a></div>",
                               "Value": {
                                 "Source": "CreatorsDataSource",
                                 "Property": "#"
