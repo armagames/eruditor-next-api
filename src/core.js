@@ -1,8 +1,7 @@
-const util = require('util');
 const express = require('express');
 const source = require('./source');
+const log = require('./logger').log;
 
-const log = util.debuglog('eruditor-next-api');
 const app = express();
 
 app.set('port', (process.env.PORT || 5000));
