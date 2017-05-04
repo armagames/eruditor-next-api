@@ -8,3 +8,4 @@ deploy:
   app: eruditor-next
   on:
     repo: armagames/eruditor-next-api
+    branch: public
