@@ -1,6 +1,10 @@
 language: node_js
 node_js:
-  - "node"
+- node
 deploy:
   provider: heroku
-  api_key: $heroku-api-key
+  api_key:
+    secure: fHNot3eRJK+eLRdTDU1vl4s2ujAchcz7bKTX5Z69vRdXxWGT+2brIxLNArJFbdM//8dAQYdb9f6BGq0Pce98chmvOguoKYxLuJ9HxwggC62nBew40Rjo1z6lTME81WI7zd19VNjb3AUlWpbvANsRWucG0GJNm3VhptPZ8I2tVSPHCP7OlAdwdFgeEnSNJldl4I19jQuWZuGJDpTKTx0uMTRTFym0zdDH+clFSFkGavGoJL4yy6f58qcviV3LNnv4HrAmzOigCNHGeZiFvkT+M77v67gBBXBuV8RupLj6mqgtJhYwQXpJJd0yAsfaUjhaFxUqPiqQIgaTGGcHt7FHHDN9l4LikpNgzeCZSN+nK+XJ9o5ANQbquPvTjVUgNZfCNww7Xxk17A3kAyJgTQN/Sf5Lw5NBs0UU0sdO2iW9DYvJN8T1nokj/O9dRUfVUb99X+jeHl1IgccSdaQAhicrMbOGV/GB63gbK33Ha3ycdNjaniBdfnBnbgT/pVZH1Idgbono/b+rpT+mpDxJO0FYI0LZr8W34/6ZX89j+KmscyXNXJVY98At8JalBVDAKVSGlhTQcVk1xPMQ3nQwERwjhEu7CJmG4Snweo0RFcurN2gUKiJ9uNJW/Upxs24xDNoiSjXAfaMSRdufYLm+6OZya3l4PdmYALWpnwgG81ExeL4=
+  app: eruditor-next-api
+  on:
+    repo: armagames/eruditor-next-api
