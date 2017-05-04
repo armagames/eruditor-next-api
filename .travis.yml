@@ -1,5 +1,4 @@
 language: node_js
 node_js:
   - "node"
-before_script:
-  - git config --global core.autocrlf true
+  
