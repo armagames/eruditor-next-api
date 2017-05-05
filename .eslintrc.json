@@ -6,10 +6,7 @@
   },
   "rules": {
     "no-restricted-syntax": "off",
-    "linebreak-style": [
-      "warn",
-      "windows"
-    ],
+    "linebreak-style": "warn",
     "quotes": [
       "error",
       "single"
