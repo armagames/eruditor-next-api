@@ -22,7 +22,7 @@ function responseConverter(context, args) {
   var targetHash = getHashFromObject(value);
 
   if (currentHash !== targetHash) {
-    var newUrl = InfinniUI.StringUtils.format('{0}/#{1}', [location.origin, targetHash]);
+    var newUrl = InfinniUI.StringUtils.format('{0}/#/{1}', [location.origin, targetHash]);
     history.pushState(null, null, newUrl);
   }
 
@@ -30,7 +30,7 @@ function responseConverter(context, args) {
 }
 
 function onLoaded(context, args) {
-  window.onpopstate = function (e) {
+  window.onpopstate = function(e) {
     onPopStateFunc(context, args, e);
   }
 }
@@ -51,7 +51,13 @@ function filterConverter(context, args) {
 }
 
 function getHashParams() {
-  return location.hash.slice(1);
+  return location.hash
+    .slice(1)
+    .split('/')
+    .filter(function(item) {
+      return !!item;
+    })
+    .join('/');
 }
 
 function getHashFromObject(o) {
@@ -65,7 +71,7 @@ function getParamsAsArrayFromObject(o) {
   return [
     value.type,
     value._id
-  ].filter(function (i) {
+  ].filter(function(i) {
     return i;
   });
 }
@@ -75,7 +81,9 @@ function getValueOrDefault(value) {
 }
 
 function changeFilterItem(context, filter) {
-  var f = (filter || '').split('/')[0];
+  var f = (filter || '').split('/').filter(function(item) {
+    return !!item;
+  })[0];
   var type = getValueOrDefault(f);
 
   var items = context.dataSources.TypesDataSource.getItems() || [];
