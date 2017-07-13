@@ -2,6 +2,9 @@
   "name": "eruditor-next-api",
   "version": "0.0.1",
   "description": "",
+  "engines": {
+    "node": "6.11.1"
+  },
   "main": "src/app.js",
   "devDependencies": {
     "eslint": "^3.4.0",
